@@ -24,9 +24,9 @@ def python_defaultmsg():
 def python_text(text):
     return 'Python %s' % text.replace('_', ' ')
 
-@app.route('/number/<n>', strict_slashes=False)
+@app.route('/number/<int:n>', strict_slashes=False)
 def if_number(n):
-    return '%d is a number' % n.isnumeric(n)
+    return '%d is a number' % n
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
