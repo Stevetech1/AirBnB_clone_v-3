@@ -150,14 +150,12 @@ EOF  all  create  destroy  help  quit  show  update
 (hbnb) quit
 ```
 
-## Bugs
+## Bugs:
 No known bugs at this time. 
 
-## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
-[Steve Ojata](https://github.com/Stevetech1)
-[LukaAnnong](https://github.com/LukaAnnong)
-Second part of Airbnb: Joann Vuong
-## License
+## Authors:
+Steve Ojata <steveojata54@gmail.com>
+Luka Annong <@gmail.com>
+
+## License:
 Public Domain. No copy write protection. 

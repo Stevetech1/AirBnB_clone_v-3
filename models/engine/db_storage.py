@@ -44,7 +44,7 @@ class DBStorage:
         """query on the current database session"""
         new_dict = {}
         for clss in classes:
-            if cls is None or cls is classes[clss]:
+            if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
@@ -69,4 +69,30 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sess_factory)
-        self.__session = Session()
+        self.__session = Session
+
+    def close(self):
+        """call remove() method on the private session attribute"""
+        self.__session.remove()
+
+    def get(self, cls, id):
+        """retrieve one object with id from current database session"""
+        obj = None
+        if cls and id:
+            try:
+                if isinstance(cls, BaseModel):
+                    cls_name = str(cls).split('.')[-1]
+                if isinstance(cls, str):
+                    cls_name = cls
+                else:
+                    cls_name = cls.__name__
+                obj = self.__session.query(classes[cls_name]).get({'id': id})
+            except sqlalchemy.orm.exc.ObjectDeletedError:
+                obj = None
+        return obj
+
+    def count(self, cls=None):
+        """
+            returns the count of all objects in storage
+        """
+        return (len(self.all(cls)))

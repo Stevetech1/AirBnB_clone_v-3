@@ -29,7 +29,7 @@ class FileStorage:
         if cls is not None:
             new_dict = {}
             for key, value in self.__objects.items():
-                if cls == value.__class__:
+                if cls == value.__class__ or cls == value.__class__.__name__:
                     new_dict[key] = value
             return new_dict
         return self.__objects
@@ -64,3 +64,29 @@ class FileStorage:
             key = obj.__class__.__name__ + '.' + obj.id
             if key in self.__objects:
                 del self.__objects[key]
+
+    def close(self):
+        """call reload() method for deserializing the JSON file to objects"""
+        self.reload()
+
+    def get(self, cls, id):
+        """
+            retrieves one object based on class name and id
+        """
+        if cls and id:
+            if isinstance(cls, BaseModel):
+                cls_name = str(cls).split('.')[-1]
+            if isinstance(cls, str):
+                cls_name = cls
+            else:
+                cls_name = cls.__name__
+            fetch_obj = "{}.{}".format(cls_name, id)
+            all_obj = self.all(cls)
+            return all_obj.get(fetch_obj)
+        return None
+
+    def count(self, cls=None):
+        """
+        count of all objects in storage
+        """
+        return (len(self.all(cls)))
