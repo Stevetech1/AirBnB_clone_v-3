@@ -154,6 +154,7 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors:
+Favour Ocheja <favourocheja@gmail.com>                            Samuel John <Samueljohn3999@gmail.com>
 Steve Ojata <steveojata54@gmail.com>
 Luka Annong <@gmail.com>
 
